@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BuildStart — Commercial Concepts | AM Visuals</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+:root{
+  --cream:#faf8f4;--cream2:#f4f0e8;--cream3:#ede8dc;
+  --ink:#1a1814;--ink2:#3a3630;--ink3:#6b6560;
+  --border:#ddd8ce;--border2:#ccc5b8;
+  --gold:#c8a96e;--gold2:#a8863e;--gold3:#f0e8d4;
+  --blue:#2c4a7c;--blue2:#1e3560;--accent:#8b6914;
+}
+body{background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(250,248,244,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-links{display:flex;gap:2px}
+.nav-links a{font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 12px;border-radius:5px;transition:.18s;letter-spacing:.02em}
+.nav-links a:hover,.nav-links a.active{color:var(--ink);background:var(--cream2)}
+.nav-prepared{font-size:11px;color:var(--ink3);letter-spacing:.03em;display:flex;flex-direction:column;align-items:flex-end;line-height:1.4}
+.nav-prepared strong{color:var(--ink);font-weight:600}
+
+section{padding:110px 0 80px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.container{max-width:1080px;margin:0 auto;padding:0 3rem;width:100%}
+
+#hero{background:var(--cream);border-bottom:1px solid var(--border)}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--gold2);margin-bottom:1.4rem}
+.hero-h1{font-size:clamp(2.4rem,4vw,3.6rem);font-weight:700;letter-spacing:-.025em;line-height:1.08;margin-bottom:1.2rem;color:var(--ink)}
+.hero-h1 em{font-style:normal;color:var(--gold2)}
+.hero-sub{font-size:15px;color:var(--ink3);max-width:420px;line-height:1.75;margin-bottom:2rem}
+.hero-meta{display:flex;flex-direction:column;gap:4px;border-left:2px solid var(--gold);padding-left:14px}
+.hero-meta-item{font-size:13px;color:var(--ink3)}
+.hero-meta-item strong{color:var(--ink);font-weight:600}
+.hero-right{display:flex;flex-direction:column;gap:10px}
+.hero-stat{background:var(--cream2);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;display:flex;align-items:center;gap:14px}
+.hero-stat-num{font-size:2rem;font-weight:700;color:var(--gold2);line-height:1}
+.hero-stat-label{font-size:13px;color:var(--ink3);line-height:1.4}
+
+.sh{margin-bottom:2.5rem}
+.sh-eye{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.16em;color:var(--gold2);margin-bottom:.5rem}
+.sh-h2{font-size:clamp(1.6rem,2.8vw,2.4rem);font-weight:700;letter-spacing:-.022em;margin-bottom:.6rem;color:var(--ink)}
+.sh-bar{width:32px;height:2px;border-radius:2px;background:var(--gold);margin-bottom:.9rem}
+.sh-p{font-size:14px;color:var(--ink3);max-width:600px;line-height:1.75}
+
+#brief{background:var(--cream2)}
+.gtb-block{background:white;border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:1.6rem}
+.gtb-row{display:grid;grid-template-columns:72px 1fr;gap:0;border-bottom:1px solid var(--border)}
+.gtb-row:last-child{border-bottom:none}
+.gtb-key{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:white;background:var(--blue);padding:1.2rem;display:flex;align-items:center;justify-content:center}
+.gtb-val{font-size:14px;line-height:1.8;color:var(--ink2);padding:1.1rem 1.4rem}
+.brief-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.bc{background:white;border:1px solid var(--border);border-radius:12px;padding:1.3rem}
+.bc-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--ink3);margin-bottom:.7rem}
+.bc p,.bc li{font-size:14px;line-height:1.75;color:var(--ink2)}
+.bc ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.bc li{display:flex;gap:8px;align-items:flex-start}
+.bc li::before{content:"→";color:var(--gold2);font-size:12px;flex-shrink:0;margin-top:3px}
+
+#concepts{background:var(--cream)}
+.ctabs{display:flex;gap:8px;margin-bottom:2.2rem;flex-wrap:wrap}
+.ctab{font-size:13px;font-weight:600;padding:8px 20px;border-radius:8px;border:1px solid var(--border2);background:white;color:var(--ink3);cursor:pointer;transition:.2s;white-space:nowrap}
+.ctab.on{color:white;border-color:transparent}
+.cpanel{display:none}
+.cpanel.on{display:block}
+
+.concept-top{display:flex;align-items:flex-start;gap:1.2rem;margin-bottom:1.8rem;flex-wrap:wrap}
+.con-badge{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:5px 13px;border-radius:20px;flex-shrink:0;margin-top:6px}
+.con-badge.rec{background:var(--gold3);color:var(--gold2);border:1px solid var(--gold)}
+.con-badge.sec{background:var(--cream2);color:var(--ink3);border:1px solid var(--border)}
+.con-head h2{font-size:1.7rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.3rem;color:var(--ink)}
+.con-head p{font-size:15px;color:var(--ink3);max-width:680px;line-height:1.7}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.8rem}
+.ic{background:white;border:1px solid var(--border);border-radius:12px;padding:1.3rem}
+.ic-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--ink3);margin-bottom:.7rem}
+.ic p{font-size:14px;line-height:1.75;color:var(--ink2)}
+.ic p+p{margin-top:8px}
+.orbit-gif{width:100%;border-radius:8px;margin-top:10px;display:block}
+
+.sc-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--ink3);margin-bottom:1rem}
+.scene{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:8px}
+.sh2{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--cream2);border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
+.snum{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0}
+.stitle{font-size:14px;font-weight:600;flex:1;color:var(--ink)}
+.sarrow{font-size:11px;color:var(--ink3);transition:transform .2s}
+.sbody{display:none;grid-template-columns:1fr 1fr 1fr}
+.sbody.open{display:grid}
+.scol{padding:14px 16px;border-right:1px solid var(--border)}
+.scol:last-child{border-right:none}
+.scol-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+.scol p{font-size:13px;line-height:1.65;color:var(--ink3)}
+.scol.plat p{color:var(--blue)}
+.scol.vo p{font-style:italic;color:var(--ink2)}
+.kf-inline{width:100%;border-radius:8px;margin-top:10px;display:block;object-fit:cover;border:1px solid var(--border)}
+
+#production{background:var(--cream2)}
+.prod-tabs{display:flex;gap:8px;margin-bottom:1.8rem;flex-wrap:wrap}
+.prod-tab{font-size:12px;font-weight:600;padding:7px 16px;border-radius:8px;border:1px solid var(--border2);background:white;color:var(--ink3);cursor:pointer;transition:.2s}
+.prod-tab.on{color:white;background:var(--blue);border-color:var(--blue)}
+.prod-panel{display:none}
+.prod-panel.on{display:block}
+.prod-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.prod-card{background:white;border:1px solid var(--border);border-radius:12px;padding:1.3rem}
+.prod-icon{font-size:20px;margin-bottom:.7rem}
+.prod-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);margin-bottom:.7rem}
+.prod-items{list-style:none;display:flex;flex-direction:column;gap:6px}
+.prod-items li{font-size:13px;color:var(--ink3);display:flex;gap:8px;align-items:flex-start}
+.prod-items li::before{content:"–";color:var(--border2);flex-shrink:0;margin-top:2px}
+
+#timeline{background:var(--cream)}
+.tl{position:relative;margin:2rem 0}
+.tl-line{position:absolute;left:17px;top:30px;bottom:30px;width:1px;background:var(--border2)}
+.tl-item{display:flex;gap:1.4rem;align-items:flex-start;margin-bottom:1.2rem;position:relative}
+.tl-dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;border:2px solid var(--cream);z-index:1}
+.tl-box{background:white;border:1px solid var(--border);border-radius:12px;padding:.9rem 1.2rem;flex:1}
+.tl-date{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin-bottom:3px}
+.tl-task{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.tl-detail{font-size:13px;color:var(--ink3);line-height:1.6}
+.tl-launch .tl-box{background:var(--gold3);border-color:var(--gold);border-width:1.5px}
+.tl-launch .tl-task{color:var(--gold2)}
+.next-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:2.2rem}
+.next-card{background:white;border:1px solid var(--border);border-radius:12px;padding:1.2rem}
+.next-owner{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold2);margin-bottom:.4rem}
+.next-action{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:.3rem}
+.next-due{font-size:12px;color:var(--ink3)}
+
+footer{background:var(--ink);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+footer p{font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.04em}
+
+@media(max-width:768px){
+  .hero-inner,.brief-grid,.two-col,.prod-grid,.next-grid{grid-template-columns:1fr}
+  .sbody.open{grid-template-columns:1fr}
+  .scol{border-right:none;border-bottom:1px solid var(--border)}
+  .scol:last-child{border-bottom:none}
+  nav .nav-links,.nav-prepared{display:none}
+  .container{padding:0 1.4rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <img src="amv-logo.png" alt="AM Visuals" style="height:44px;display:block">
+  <div class="nav-links">
+    <a href="#hero">Home</a><a href="#brief">Brief</a><a href="#concepts">Concepts</a><a href="#production">Production</a><a href="#timeline">Timeline</a>
+  </div>
+  <div class="nav-prepared">
+    <span>Prepared for <strong>Hai Nguyen</strong></span>
+    <span>Founder, BuildStart · April 2026</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">Commercial Concepts Presentation</div>
+        <h1 class="hero-h1">Building the <em>network</em> that builds Australia</h1>
+        <p class="hero-sub">Three commercial concepts for the BuildStart masterbrand campaign — connecting verified professionals with serious clients.</p>
+        <div class="hero-meta">
+          <div class="hero-meta-item">Prepared for <strong>Hai Nguyen, Founder — BuildStart</strong></div>
+          <div class="hero-meta-item">By <strong>AM Visuals</strong> · Video Production, Sydney</div>
+          <div class="hero-meta-item"><strong>April 2026</strong></div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-label">Distinct creative concepts<br><span style="font-size:11px;color:var(--ink3)">1 recommended primary</span></div></div>
+        <div class="hero-stat"><div class="hero-stat-num">1</div><div class="hero-stat-label">Actor, all roles<br><span style="font-size:11px;color:var(--ink3)">Cost-efficient lean production</span></div></div>
+        <div class="hero-stat"><div class="hero-stat-num" style="font-size:1.5rem">May 1</div><div class="hero-stat-label">Target launch date<br><span style="font-size:11px;color:var(--ink3)">5-week production runway</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIEF -->
+<section id="brief">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-eye">01 — Brief & Objective</div>
+      <h2 class="sh-h2">The strategic foundation</h2>
+      <div class="sh-bar"></div>
+      <p class="sh-p">A clear Get–To–By framework anchors every concept to a single business outcome.</p>
+    </div>
+    <div class="gtb-block">
+      <div class="gtb-row"><div class="gtb-key">GET</div><div class="gtb-val">Building professionals (builders, architects, designers) and homeowners who value trust, credibility, and efficiency. Professionals want quality leads that convert. Homeowners want verified experts they can confidently hire. Both are frustrated by unreliable directories and unvetted platforms.</div></div>
+      <div class="gtb-row"><div class="gtb-key">TO</div><div class="gtb-val">Make BuildStart their go-to platform for discovering, connecting, and managing building projects — the trusted space where credible professionals and serious clients meet to get work done.</div></div>
+      <div class="gtb-row"><div class="gtb-key">BY</div><div class="gtb-val">Positioning BuildStart as the credibility-first construction community — a smarter, simpler, and safer way to find and collaborate with verified professionals. Through AI-assisted project tools, verified profiles, chat, and review systems, users experience a seamless journey from idea to completion.</div></div>
+    </div>
+    <div class="brief-grid">
+      <div class="bc"><div class="bc-lbl">The audience</div><ul><li>Architects, builders &amp; designers seeking quality leads</li><li>Homeowners seeking verified, reliable experts</li><li>Trust-led decision makers who rely on peer validation</li></ul></div>
+      <div class="bc"><div class="bc-lbl">The problem we solve</div><p>Unreliable directories create friction and risk on both sides. BuildStart replaces uncertainty with a credibility-first, AI-powered network where every professional is verified before they appear.</p></div>
+      <div class="bc"><div class="bc-lbl">Campaign objectives</div><ul><li>Drive professional sign-ups &amp; verified profiles</li><li>Build brand trust with homeowner audience</li><li>Position BuildStart as the category leader in AU</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPTS -->
+<section id="concepts">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-eye">02 — Creative Concepts</div>
+      <h2 class="sh-h2">Three ways to tell the story</h2>
+      <div class="sh-bar"></div>
+      <p class="sh-p">Each concept is rooted in the same strategy — brought to life through a distinct visual language. We recommend Concept 1.</p>
+    </div>
+
+    <div class="ctabs">
+      <button class="ctab on" style="background:var(--gold2)" onclick="switchConcept(0,this)">★ Concept 1 — Orbit <span style="font-weight:400;font-size:11px;opacity:.8">(Recommended)</span></button>
+      <button class="ctab" onclick="switchConcept(1,this)">Concept 2 — Transitions</button>
+      <button class="ctab" onclick="switchConcept(2,this)">Concept 3 — Split Screen</button>
+    </div>
+
+    <!-- ═══ CONCEPT 1: ORBIT ═══ -->
+    <div class="cpanel on" id="cp0">
+      <div class="concept-top">
+        <span class="con-badge rec">★ Recommended</span>
+        <div class="con-head">
+          <h2>Concept 1 — The Orbit</h2>
+          <p>A single glowing screen floats in darkness — the camera orbits it cinematically, revealing a new professional each time it passes behind the monitor, making BuildStart the gravitational centre of the entire industry.</p>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="ic">
+          <div class="ic-lbl">Treatment summary</div>
+          <p>Premium 360° orbit camera technique in a dark cyclorama — one platform, multiple lives revolving around it. Cinematic, filmic, high-contrast.</p>
+          <img src="https://www.diyphotography.net/wp-content/uploads/2019/06/orbiting-hyperlapse.gif" alt="Orbit camera reference" class="orbit-gif">
+        </div>
+        <div class="ic">
+          <div class="ic-lbl">Core idea / creative magnifier</div>
+          <p>The orbit camera makes BuildStart feel like the gravitational centre connecting all professionals — everyone revolves around the same platform.</p>
+          <p style="margin-top:8px">The dark-vs-light contrast positions BuildStart as premium and cutting-edge, not a job board.</p>
+        </div>
+      </div>
+
+      <div class="sc-lbl">Storyline — 6 Scenes</div>
+
+      <!-- Scene 1 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:var(--gold2)">1</div>
+          <div class="stitle">The screen changes everything</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:var(--gold2)">Visual / Action</div>
+            <p>Wide shot of a dark cyclorama room. A single lit desk and computer glow in the centre. Camera slowly zooms into the BuildStart dashboard showing Architect Anna's profile.</p>
+            <img src="https://i.imgur.com/placeholder.jpg" alt="" class="kf-inline" style="display:none">
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>Digital FX: 'New Project Request – Sam (Homeowner).' Profile: 'Anna – Architect Verified Pro.' Notification pings. Logo glows.</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>This screen changes everything for building professionals.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 2 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:var(--gold2)">2</div>
+          <div class="stitle">Anna — anticlockwise reveal</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:var(--gold2)">Visual / Action</div>
+            <p>360° anticlockwise camera orbit begins from the back of the screen, revealing Anna sitting in front of it. Camera completes arc back to the screen's rear → transitions to next person.</p>
+            <img src="c1-s5.webp" alt="Scene 2 keyframe" class="kf-inline" onerror="this.style.display='none'">
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>BuildStart interface animates: 'Accept Job' → 'Connected with Sam.' Side panel: 'Invite a Builder – Recommended: Mark (Verified).'</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>This is Anna, a vetted Architect. Today, she's just been booked by Sam — a homeowner who found her on BuildStart, Australia's professional network for building pros like you.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 3 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:var(--gold2)">3</div>
+          <div class="stitle">Mark — builder reveal</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:var(--gold2)">Visual / Action</div>
+            <p>Circular motion — Mark (builder, work shirt) is now at the desk, checking a new notification from Anna. He accepts her collaboration invite.</p>
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>Mark opens BuildStart app on mobile: 'Anna invited you to collaborate.' He taps Accept. 'Project Kitchen Renovation – Added to Dashboard.'</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>Anna connects with Mark — a builder whose profile and past work speak for themselves. BuildStart vets every pro — connecting you to projects from clients and other professionals.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 4 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:var(--gold2)">4</div>
+          <div class="stitle">Sam — the homeowner</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:var(--gold2)">Visual / Action</div>
+            <p>Circular motion — Sam (homeowner, casual) smiles at the screen looking at his team. Updates come in on his phone.</p>
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>Dashboard cards slide in: 'Milestone 2 Complete.' AI Assistant popup: 'All tasks on track.'</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>The team's on-site — plans in hand, vision coming to life. What began with one connection is now a full collaboration through BuildStart.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 5 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:var(--gold2)">5</div>
+          <div class="stitle">The wider network</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:var(--gold2)">Visual / Action</div>
+            <p>Wide shot pushes into a match cut of different building professionals — plumber, carpenter, gardener — same actor, different uniforms.</p>
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>Floating profile photos with glowing Verified badges interlink. BuildStart logo forms centre-screen.</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>BuildStart — it's YOUR network. Every pro vetted. Every project worth your time.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 6 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:var(--gold2)">6</div>
+          <div class="stitle">Sam thinks ahead</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:var(--gold2)">Visual / Action</div>
+            <p>Sam sits at night at his desk and opens BuildStart's AI Project Assistant. Types 'Garden Makeover.'</p>
+            <img src="c1-s8.webp" alt="Scene 6 keyframe" class="kf-inline" onerror="this.style.display='none'">
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>AI chat responds instantly: 'Project created → Suggested Tasks → 3 Vetted Pros Matched.' Progress bar fills; timeline and budget auto-populate.</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>That night, Sam's already thinking ahead. Because once you build trust, you build momentum. BuildStart — Vetted Network | Quality Clients | Start Today.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CONCEPT 2: TRANSITIONS ═══ -->
+    <div class="cpanel" id="cp1">
+      <div class="concept-top">
+        <span class="con-badge sec">Secondary</span>
+        <div class="con-head">
+          <h2>Concept 2 — Transitions</h2>
+          <p>One versatile actor plays every role — quick-cut costume transitions in a bright studio — humour and recognition over cinematic production.</p>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="ic"><div class="ic-lbl">Treatment summary</div><p>Fast-cut character transitions in a bright studio — the same actor in all roles creates instant humour and reinforces that BuildStart connects every stakeholder in one trusted network.</p></div>
+        <div class="ic"><div class="ic-lbl">Core idea / creative magnifier</div><p>The same actor playing all characters — including the dodgy builder — creates comedy while landing a serious point: BuildStart vets who gets in. The comedic cut is the standout differentiator.</p></div>
+      </div>
+
+      <div class="sc-lbl">Storyline — 4 Scenes</div>
+
+      <!-- C2 Scene 1 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:#5a7a3a">1</div>
+          <div class="stitle">Anna gets booked</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:#5a7a3a">Visual / Action</div>
+            <p>Architect Anna sits in her bright studio office. A ping arrives on her screen. She accepts the job — the scene spirals backwards.</p>
+            <img src="c2-s1.webp" alt="Keyframe" class="kf-inline" onerror="this.style.display='none'">
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>BuildStart dashboard loads. Anna's 'Verified Pro' badge and review stars animate. Notification: 'New Project – Sam (Homeowner). Accept / Decline.' Anna clicks Accept.</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>Anna is an architect who believes good design starts with the right connections. Today, she's just been booked by Sam — a homeowner who found her on BuildStart.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- C2 Scene 2 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:#5a7a3a">2</div>
+          <div class="stitle">Finding a builder — comedic cut</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:#5a7a3a">Visual / Action</div>
+            <p>Anna is on a video call with Sam reviewing a kitchen plan. She opens BuildStart mobile to find a builder. Comedic cut: a bogan tradie pops up behind her — legs up, claiming he'd do it cheaper. Anna rolls her eyes.</p>
+            <img src="c2-s2.webp" alt="Keyframe" class="kf-inline" onerror="this.style.display='none'">
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>Anna filters BuildStart: 'Builders – Verified Only.' Scrolls green-badge profiles. Taps 'Mark – Licensed Builder (5★)' → 'Send Invite.' Connection request sent.</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>They're designing his dream kitchen. (Comedic intercut) 'I could do it cheaper.' But unlike tradie apps, BuildStart vets every pro. So Anna connects with Mark — a builder whose past work speaks for itself.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- C2 Scene 3 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:#5a7a3a">3</div>
+          <div class="stitle">The team on-site</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:#5a7a3a">Visual / Action</div>
+            <p>All three characters — Anna, Mark, Sam (same actor, different costumes) — stand together holding blueprints in the studio.</p>
+            <img src="c1-s3.webp" alt="Scene 3 keyframe" class="kf-inline" onerror="this.style.display='none'">
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>BuildStart project dashboard overlay: 'Kitchen Renovation – Milestone 2 Complete.' 'Chat – Files Uploaded ✓'</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>The team's on-site — plans in hand, vision coming to life. What began with one connection is now a full collaboration through BuildStart.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- C2 Scene 4 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:#5a7a3a">4</div>
+          <div class="stitle">What's next?</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:#5a7a3a">Visual / Action</div>
+            <p>Sam sits at his desk at night and opens BuildStart. He types 'Garden Makeover.'</p>
+            <img src="c2-s4.webp" alt="Keyframe" class="kf-inline" onerror="this.style.display='none'">
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>AI chat responds instantly: 'Project created → Suggested Tasks → 3 Vetted Pros Matched.' Progress bar fills; budget auto-populates.</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>That night, Sam's already thinking ahead. Because once you build trust, you build momentum. Vetted Network | Quality Clients | Start Today.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CONCEPT 3: SPLIT SCREEN ═══ -->
+    <div class="cpanel" id="cp2">
+      <div class="concept-top">
+        <span class="con-badge sec">Secondary</span>
+        <div class="con-head">
+          <h2>Concept 3 — Split Screen</h2>
+          <p>Two architects, two mindsets — Anna thrives on BuildStart while Ben watches his phone stay silent, until he finally joins.</p>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="ic"><div class="ic-lbl">Treatment summary</div><p>Split-screen contrast — Anna vs Ben, BuildStart vs doing nothing — viewers instantly see themselves in either character and feel the cost of not being on the platform.</p></div>
+        <div class="ic"><div class="ic-lbl">Core idea / creative magnifier</div><p>The format creates aspiration (be Anna) and FOMO (don't be Ben) simultaneously. Ben's punchline "Should've BuildStarted sooner" is a rare self-aware brand moment that lands as humour while sealing the value proposition.</p></div>
+      </div>
+
+      <div class="sc-lbl">Storyline — 5 Scenes</div>
+
+      <!-- C3 Scene 1 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:#7a3a6a">1</div>
+          <div class="stitle">Two architects, two worlds</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:#7a3a6a">Visual / Action</div>
+            <p>Side-by-side studio. Left: Anna, bright and organised, laptop open with BuildStart. Right: Ben, cluttered desk, phone face-down beside cold coffee.</p>
+            <img src="c3-s3.webp" alt="Scene 1 keyframe" class="kf-inline" onerror="this.style.display='none'">
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>Anna's laptop: BuildStart dashboard open, notification ping: 'New Project Request – Sam.' Ben glances at his quiet phone — no notifications.</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>Hey there — we're BuildStart. Australia's network for architects, builders, and designers. Some say 'yeah right, let's give it a go.' Others... still waiting for the phone to ring.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- C3 Scene 2 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:#7a3a6a">2</div>
+          <div class="stitle">The difference is visible</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:#7a3a6a">Visual / Action</div>
+            <p>Anna joins Sam on a video call to discuss the project. Ben scrolls stale emails on his desktop monitor.</p>
+            <img src="c3-s2.webp" alt="Keyframe" class="kf-inline" onerror="this.style.display='none'">
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>Anna's laptop: BuildStart overlay 'Project Booked – Sam (Homeowner).' Verified Pro badge pulses. Ben's inbox is empty — he refreshes, nothing.</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>Architects on BuildStart get found by real clients — not tyre-kickers. When your work's verified, the right projects come to you.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- C3 Scene 3 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:#7a3a6a">3</div>
+          <div class="stitle">Momentum vs. stagnation</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:#7a3a6a">Visual / Action</div>
+            <p>Anna uses BuildStart to invite builder Mark while sketching 3D visuals on her tablet. Ben scrolls meaningless listings, checking his watch.</p>
+            <img src="c3-s2.webp" alt="Scene 3 keyframe" class="kf-inline" onerror="this.style.display='none'">
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>BuildStart chat: 'Invite sent → Invite accepted ✓.' Sidebar: 'Project Status: Active.' Anna's monitor shows milestones updating automatically.</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>Because BuildStart doesn't just hand out leads — it connects credible professionals who care about quality.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- C3 Scene 4 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:#7a3a6a">4</div>
+          <div class="stitle">Ben's turning point</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:#7a3a6a">Visual / Action</div>
+            <p>Late night. Ben, frustrated, picks up his phone for the first time. Opens BuildStart app, scrolls featured projects.</p>
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>BuildStart homepage on Ben's phone: 'Featured Project: Anna – Kitchen Renovation (5★ Verified Pro).' He taps 'Join Now.'</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>Sooner or later, every architect realises — the best leads don't just happen. They happen on BuildStart.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- C3 Scene 5 -->
+      <div class="scene">
+        <div class="sh2" onclick="toggleScene(this)">
+          <div class="snum" style="background:#7a3a6a">5</div>
+          <div class="stitle">Both thriving — end tag</div>
+          <div class="sarrow">▼</div>
+        </div>
+        <div class="sbody">
+          <div class="scol">
+            <div class="scol-lbl" style="color:#7a3a6a">Visual / Action</div>
+            <p>Sunlight fills both sides. Anna reviews new briefs. Ben sees his first lead arrive. Optional banter: Ben: "Should've BuildStarted sooner."</p>
+            <img src="https://buildstartxamvconcepts.netlify.app/kf-c3-s5.jpg" alt="Keyframe" class="kf-inline" onerror="this.style.display='none'">
+          </div>
+          <div class="scol plat">
+            <div class="scol-lbl" style="color:var(--blue)">Platform / Screen</div>
+            <p>Split-screen: Left — Anna, AI Project Assistant, '3 Vetted Pros Matched.' Right — Ben smiling at his first lead notification on phone.</p>
+          </div>
+          <div class="scol vo">
+            <div class="scol-lbl" style="color:var(--ink3)">VO</div>
+            <p>Quality Clients. | Ben: "Should've BuildStarted sooner." VO: "Yeah, right you should've."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTION -->
+<section id="production">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-eye">03 — Production Requirements</div>
+      <h2 class="sh-h2">Lean, efficient, premium</h2>
+      <div class="sh-bar"></div>
+      <p class="sh-p">All three concepts are engineered for a single-day shoot with one actor and one location — maximising quality while controlling cost.</p>
+    </div>
+    <div class="prod-tabs">
+      <button class="prod-tab on" onclick="switchProd(0,this)">★ Concept 1 — Orbit</button>
+      <button class="prod-tab" onclick="switchProd(1,this)">Concept 2 — Transitions</button>
+      <button class="prod-tab" onclick="switchProd(2,this)">Concept 3 — Split Screen</button>
+    </div>
+    <div class="prod-panel on" id="pp0">
+      <div class="prod-grid">
+        <div class="prod-card"><div class="prod-icon">🎬</div><div class="prod-title">Location</div><ul class="prod-items"><li>Single dark cyclorama studio</li><li>One hero setup: desk + glowing screen</li><li>Lighting creates separation between character worlds</li><li>Premium look without multiple locations</li></ul></div>
+        <div class="prod-card"><div class="prod-icon">🎭</div><div class="prod-title">Talent</div><ul class="prod-items"><li>1 actor, multiple roles via camera movement</li><li>No additional cast required</li><li>Performance-driven, minimal dialogue</li><li>VO narrator recorded separately</li></ul></div>
+        <div class="prod-card"><div class="prod-icon">⚙️</div><div class="prod-title">Logistics</div><ul class="prod-items"><li>Key focus: controlled 360° orbit rig / dolly</li><li>Precise blocking + choreography required</li><li>Heavier emphasis on camera + lighting vs set</li><li>Post includes UI overlays + seamless transitions</li></ul></div>
+      </div>
+    </div>
+    <div class="prod-panel" id="pp1">
+      <div class="prod-grid">
+        <div class="prod-card"><div class="prod-icon">🎬</div><div class="prod-title">Location</div><ul class="prod-items"><li>Single bright studio, modular styling</li><li>Small prop swaps + lighting shifts suggest environments</li><li>No multiple locations needed — cost-efficient</li></ul></div>
+        <div class="prod-card"><div class="prod-icon">🎭</div><div class="prod-title">Talent</div><ul class="prod-items"><li>1 actor playing multiple roles</li><li>Differentiated through wardrobe + simple props</li><li>VO narrator recorded separately</li></ul></div>
+        <div class="prod-card"><div class="prod-icon">⚙️</div><div class="prod-title">Logistics</div><ul class="prod-items"><li>Transition-led filming: in-camera + edit-driven</li><li>Light UI overlays: dashboard + notifications</li><li>Minimal crew, fast 1-day shoot</li><li>Moderate post for transitions + graphics</li></ul></div>
+      </div>
+    </div>
+    <div class="prod-panel" id="pp2">
+      <div class="prod-grid">
+        <div class="prod-card"><div class="prod-icon">🎬</div><div class="prod-title">Location</div><ul class="prod-items"><li>Single studio split into two contrasting setups</li><li>Clean/bright (Anna) vs cluttered/dim (Ben)</li><li>Built side-by-side or achieved through framing</li></ul></div>
+        <div class="prod-card"><div class="prod-icon">🎭</div><div class="prod-title">Talent</div><ul class="prod-items"><li>1 actor playing both roles</li><li>Simple wardrobe + styling changes</li><li>Performance contrast carries the story</li></ul></div>
+        <div class="prod-card"><div class="prod-icon">⚙️</div><div class="prod-title">Logistics</div><ul class="prod-items"><li>Locked-off camera for split-screen consistency</li><li>Minimal movement — easier shoot</li><li>Heavier reliance on post: split screen + UI overlays</li><li>Optional banter end tag as pickup</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-eye">04 — Timeline & Next Steps</div>
+      <h2 class="sh-h2">From approved to air — May 1</h2>
+      <div class="sh-bar"></div>
+      <p class="sh-p">A tight but achievable 5-week runway from concept sign-off to launch.</p>
+    </div>
+    <div class="tl">
+      <div class="tl-line"></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--blue)">W1</div><div class="tl-box"><div class="tl-date">Mar 31 – Apr 4</div><div class="tl-task">Concept approval + creative sign-off</div><div class="tl-detail">Client selects lead concept. Agency confirms treatment. VO script drafted and submitted for approval.</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--blue)">W2</div><div class="tl-box"><div class="tl-date">Apr 7 – Apr 11</div><div class="tl-task">Storyboard + pre-production</div><div class="tl-detail">Full storyboard delivered. Studio booked. Talent casting finalised. Wardrobe + props sourced. Shot list and call sheet drafted.</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--gold2)">W3</div><div class="tl-box"><div class="tl-date">Apr 14 – Apr 17</div><div class="tl-task">Production day(s)</div><div class="tl-detail">Studio shoot — 1 full day. VO recording session. All footage delivered to post team same day.</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--gold2)">W4</div><div class="tl-box"><div class="tl-date">Apr 22 – Apr 25</div><div class="tl-task">Post-production + client review</div><div class="tl-detail">Offline edit + rough cut delivered. UI motion graphics added. Client review round 1 — feedback within 48 hrs.</div></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--gold2)">W5</div><div class="tl-box"><div class="tl-date">Apr 28 – Apr 30</div><div class="tl-task">Final delivery + amends</div><div class="tl-detail">Revisions applied. Colour grade + final sound mix. Master file + all platform cuts exported.</div></div></div>
+      <div class="tl-item tl-launch"><div class="tl-dot" style="background:var(--accent)">🚀</div><div class="tl-box"><div class="tl-date">May 1, 2026</div><div class="tl-task">Campaign launch</div><div class="tl-detail">Campaign goes live across all agreed channels. Monitoring begins immediately.</div></div></div>
+    </div>
+    <div class="next-grid">
+      <div class="next-card"><div class="next-owner">Client — Hai Nguyen</div><div class="next-action">Select preferred concept</div><div class="next-due">Due: Apr 4 EOD</div></div>
+      <div class="next-card"><div class="next-owner">Agency / AM Visuals</div><div class="next-action">Finalise VO script + storyboard</div><div class="next-due">Due: Apr 11 EOD</div></div>
+      <div class="next-card"><div class="next-owner">Production</div><div class="next-action">Book studio + confirm talent</div><div class="next-due">Due: Apr 11 EOD</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="amv-logo.png" alt="AM Visuals" style="height:20px;display:block;filter:invert(1);opacity:.8">
+  <p>AM Visuals · Video Production, Sydney · Prepared for Hai Nguyen, Founder — BuildStart · Confidential · April 2026</p>
+</footer>
+
+<script>
+// Images are loaded from publicly accessible URLs
+// Map each scene image tag to the correct uploaded source
+const kfSources = {
+  'kf-c1-1': 'https://i.imgur.com/nKlVpTH.jpeg', // placeholder — replace with real URL
+  'kf-c1-2': 'https://i.imgur.com/nKlVpTH.jpeg',
+  'kf-c1-3': 'https://i.imgur.com/nKlVpTH.jpeg',
+  'kf-c2-1': 'https://i.imgur.com/nKlVpTH.jpeg',
+  'kf-c2-2': 'https://i.imgur.com/nKlVpTH.jpeg',
+  'kf-c2-4': 'https://i.imgur.com/nKlVpTH.jpeg',
+  'kf-c3-1': 'https://i.imgur.com/nKlVpTH.jpeg',
+  'kf-c3-2': 'https://i.imgur.com/nKlVpTH.jpeg',
+  'kf-c3-3': 'https://i.imgur.com/nKlVpTH.jpeg',
+  'kf-c3-5': 'https://i.imgur.com/nKlVpTH.jpeg',
+};
+
+function toggleScene(el){
+  const b=el.nextElementSibling, a=el.querySelector('.sarrow');
+  a.style.transform=b.classList.toggle('open')?'rotate(180deg)':'';
+}
+
+function switchConcept(i,btn){
+  document.querySelectorAll('.ctab').forEach(t=>{t.classList.remove('on');t.style.background='';});
+  document.querySelectorAll('.cpanel').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  const colors=['var(--gold2)','#5a7a3a','#7a3a6a'];
+  btn.style.background=colors[i];
+  document.getElementById('cp'+i).classList.add('on');
+}
+
+function switchProd(i,btn){
+  document.querySelectorAll('.prod-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.prod-panel').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('pp'+i).classList.add('on');
+}
+
+const sids=['hero','brief','concepts','production','timeline'];
+const nls=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='hero';
+  sids.forEach(id=>{const el=document.getElementById(id);if(el&&scrollY>=el.offsetTop-80)cur=id;});
+  nls.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
+});
+</script>
+</body>
+</html>
